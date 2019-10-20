@@ -1,15 +1,20 @@
-import { bookWidth as orBookWidth, bookHeight } from "./config";
+import { bookWidth, bookHeight } from "./config";
 
-export function calculate(side, clientX, clientY, initial, down, needFinishTurn, movement) {
+export function calculate(
+  side,
+  clientX,
+  clientY,
+  initial,
+  down,
+  needFinishTurn,
+  movement
+) {
   const offsetLeft = document.getElementById("book-container").offsetLeft;
   const offsetTop = document.getElementById("book-container").offsetTop;
 
   const result = {};
 
-let bookWidth = orBookWidth;
-//if (side === "right") { // test
-//  bookWidth = bookWidth/2;
-//}
+  const pageWidth = bookWidth / 2;
 
   if (!down && 0) {
     // CANCEL
@@ -38,8 +43,6 @@ let bookWidth = orBookWidth;
   } else if (cursorY < 0) {
     cursorY = 0;
   }
-
-  //const side = movementStartX >= bookWidth / 2 ? "right" : "left";
 
   let startX = side === "right" ? bookWidth : 0;
   let startY = movementStartY;
@@ -80,8 +83,8 @@ let bookWidth = orBookWidth;
       z0 = 1;
     }
 
-    if (z0x < bookWidth / 2) {
-      z0x = bookWidth / 2;
+    if (z0x < pageWidth) {
+      z0x = pageWidth;
     }
   } else if (side === "left") {
     if (z0x < 0) {
@@ -90,8 +93,8 @@ let bookWidth = orBookWidth;
       z0 = 1;
     }
 
-    if (z0x > bookWidth / 2) {
-      z0x = bookWidth / 2;
+    if (z0x > pageWidth) {
+      z0x = pageWidth;
     }
   }
 
@@ -105,8 +108,8 @@ let bookWidth = orBookWidth;
       z1y = slope * (bookWidth - mx) + my;
       z1 = 1;
     }
-    if (z1x < bookWidth / 2) {
-      z1x = bookWidth / 2;
+    if (z1x < pageWidth) {
+      z1x = pageWidth;
     }
   } else if (side === "left") {
     if (z1x < 0) {
@@ -114,8 +117,8 @@ let bookWidth = orBookWidth;
       z1y = -slope * mx + my;
       z1 = 1;
     }
-    if (z1x > bookWidth / 2) {
-      z1x = bookWidth / 2;
+    if (z1x > pageWidth) {
+      z1x = pageWidth;
     }
   }
 
@@ -164,7 +167,7 @@ let bookWidth = orBookWidth;
   const d1 = dist(z0x, z0y, u0x, u0y, movement);
   const d2 = dist(z1x, z1y, u1x, u1y, movement);
 
-  result.newX = u0x;
+  result.newX = side === "right" ? u0x : u0x - pageWidth;
   result.newY = u0y;
 
   result.r = angle;
@@ -181,8 +184,8 @@ let bookWidth = orBookWidth;
   result.z0 = z0;
   result.z1 = z1;
 
-  if (side === "left") {
-    if (z0 === 0 && z1 === 0) {
+  if (z0 === 0 && z1 === 0) {
+    if (side === "right") {
       result.newX1 = 0;
       result.newY1 = 0;
       result.newX2 = d1;
@@ -191,7 +194,18 @@ let bookWidth = orBookWidth;
       result.newY3 = bookHeight;
       result.newX4 = 0;
       result.newY4 = bookHeight;
-    } else if (z0 === 1) {
+    } else {
+      result.newX1 = pageWidth - d1;
+      result.newY1 = 0;
+      result.newX2 = pageWidth;
+      result.newY2 = 0;
+      result.newX3 = pageWidth;
+      result.newY3 = bookHeight;
+      result.newX4 = pageWidth - d2;
+      result.newY4 = bookHeight;
+    }
+  } else if (z0 === 1) {
+    if (side === "right") {
       result.newX1 = 0;
       result.newY1 = d1;
       result.newX2 = d2;
@@ -200,7 +214,18 @@ let bookWidth = orBookWidth;
       result.newY3 = bookHeight;
       result.newX4 = result.newX3;
       result.newY4 = result.newY3;
-    } else if (z1 === 1) {
+    } else {
+      result.newX1 = pageWidth;
+      result.newY1 = d1;
+      result.newX2 = pageWidth - d2;
+      result.newY2 = bookHeight;
+      result.newX3 = pageWidth;
+      result.newY3 = bookHeight;
+      result.newX4 = result.newX3;
+      result.newY4 = result.newY3;
+    }
+  } else if (z1 === 1) {
+    if (side === "right") {
       result.newX1 = 0;
       result.newY1 = 0;
       result.newX2 = d1;
@@ -209,32 +234,12 @@ let bookWidth = orBookWidth;
       result.newY3 = bookHeight - d2;
       result.newX4 = result.newX3;
       result.newY4 = result.newX3;
-    }
-  } else if (side === "right") {
-    if (z0 === 0 && z1 === 0) {
-      result.newX1 = 0;
+    } else {
+      result.newX1 = pageWidth;
       result.newY1 = 0;
-      result.newX2 = d1;
+      result.newX2 = pageWidth - d1;
       result.newY2 = 0;
-      result.newX3 = d2;
-      result.newY3 = bookHeight;
-      result.newX4 = 0;
-      result.newY4 = bookHeight;
-    } else if (z0 === 1) {
-      result.newX1 = 0;
-      result.newY1 = d1;
-      result.newX2 = d2;
-      result.newY2 = bookHeight;
-      result.newX3 = 0;
-      result.newY3 = bookHeight;
-      result.newX4 = result.newX3;
-      result.newY4 = result.newY3;
-    } else if (z1 === 1) {
-      result.newX1 = 0;
-      result.newY1 = 0;
-      result.newX2 = d1;
-      result.newY2 = 0;
-      result.newX3 = 0;
+      result.newX3 = pageWidth;
       result.newY3 = bookHeight - d2;
       result.newX4 = result.newX3;
       result.newY4 = result.newX3;
@@ -243,12 +248,11 @@ let bookWidth = orBookWidth;
 
   if (!down) {
     if (needFinishTurn) {
-
       if (side === "right") {
         result.newX = 0;
         result.newX1 = 0;
-        result.newX2 = bookWidth/2;
-        result.newX3 = bookWidth/2;
+        result.newX2 = pageWidth;
+        result.newX3 = pageWidth;
         result.newX4 = 0;
         result.newY = 0;
         result.newY1 = 0;
@@ -256,15 +260,15 @@ let bookWidth = orBookWidth;
         result.newY3 = bookHeight;
         result.newY4 = bookHeight;
         result.r = 0;
-        result.z0x = bookWidth/2;
+        result.z0x = pageWidth;
         result.z0y = 0;
-        result.z1x = bookWidth/2;
+        result.z1x = pageWidth;
         result.z1y = bookHeight;
       } else {
-        result.newX = bookWidth / 2;
+        result.newX = pageWidth;
         result.newX1 = 0;
-        result.newX2 = bookWidth/2;
-        result.newX3 = bookWidth/2;
+        result.newX2 = pageWidth;
+        result.newX3 = pageWidth;
         result.newX4 = 0;
         result.newY = 0;
         result.newY1 = 0;
@@ -272,30 +276,53 @@ let bookWidth = orBookWidth;
         result.newY3 = bookHeight;
         result.newY4 = bookHeight;
         result.r = 0;
-        result.z0x = bookWidth/2;
+        result.z0x = pageWidth;
         result.z0y = 0;
-        result.z1x = bookWidth/2;
+        result.z1x = pageWidth;
         result.z1y = bookHeight;
       }
     } else {
+      // back
       if (side === "right") {
-      result.newX = bookWidth;
-      result.newX1 = 0;
-      result.newX2 = 0;
-      result.newX3 = 0;
-      result.newX4 = 0;
-      result.newY = 0;
-      result.newY1 = 0;
-      result.newY2 = 0;
-      result.newY3 = bookHeight;
-      result.newY4 = bookHeight;
-      result.r = 0;
-      result.z0x = bookWidth;
-      result.z0y = bookHeight;
-      result.z1x = bookWidth;
-      result.z1y = bookHeight;
+        if (z1 === 1) {
+          // top corner
+          result.newY = 0;
+          result.newX = bookWidth;
+          result.newX2 = 0;
+          result.newX3 = 0;
+          result.newX4 = 0;
+          result.newY1 = 0;
+          result.newY2 = 0;
+          result.newY3 = 0;
+        } else if (z0 === 1) {
+          // bottom corner
+          //u1y - u0y, u1x - u0x
+          result.newX = bookWidth + u0x - u1x;
+          result.newY = bookHeight + u0y - u1y;
+          result.newX1 = 0;
+          result.newY1 = bookHeight;
+          result.newX2 = 0;
+          result.newY2 = bookHeight;
+          result.newX3 = result.newX2;
+          result.newX4 = result.newX2;
+          result.newY3 = result.newY2;
+          result.newY4 = result.newY2;
+        }
+        else {
+result.r=0;
+          result.newY = 0;
+          result.newX = bookWidth;
+          result.newX1 = 0;
+          result.newX2 = 0;
+          result.newX3 = 0;
+          result.newX4 = 0;
+          result.newY1 = 0;
+          result.newY2 = 0;
+          result.newY3 = bookHeight;
+          result.newY4 = bookHeight;
+        }
       } else {
-        result.newX = -bookWidth / 2;
+        result.newX = -pageWidth;
         result.newX1 = 0;
         result.newX2 = 0;
         result.newX3 = 0;
@@ -306,15 +333,15 @@ let bookWidth = orBookWidth;
         result.newY3 = bookHeight;
         result.newY4 = bookHeight;
         result.r = 0;
-        result.z0x = bookWidth/2;
+        result.z0x = pageWidth;
         result.z0y = bookHeight;
-        result.z1x = bookWidth/2;
+        result.z1x = pageWidth;
         result.z1y = bookHeight;
       }
     }
   }
 
-  console.log(result);
+  //console.log(result);
 
   //for (let key in result) {
   // if (key === "display") continue;

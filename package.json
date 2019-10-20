@@ -9,6 +9,7 @@
     "react-scripts": "3.2.0",
     "react-spring": "^8.0.27",
     "react-use-gesture": "^6.0.12",
+    "scroll-lock": "^2.1.2",
     "styled-components": "^4.4.0"
   },
   "scripts": {
@@ -24,12 +25,14 @@
     "production": [
       ">0.2%",
       "not dead",
-      "not op_mini all"
+      "not op_mini all",
+      "ie >= 11"
     ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
-      "last 1 safari version"
+      "last 1 safari version",
+      "ie >= 11"
     ]
   }
 }
