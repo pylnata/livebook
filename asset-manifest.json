@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/livebook/static/css/main.f87fa4be.chunk.css",
-    "main.js": "/livebook/static/js/main.70455773.chunk.js",
-    "main.js.map": "/livebook/static/js/main.70455773.chunk.js.map",
+    "main.js": "/livebook/static/js/main.7f71190a.chunk.js",
+    "main.js.map": "/livebook/static/js/main.7f71190a.chunk.js.map",
     "runtime-main.js": "/livebook/static/js/runtime-main.320e36ce.js",
     "runtime-main.js.map": "/livebook/static/js/runtime-main.320e36ce.js.map",
     "static/js/2.c2f9cdff.chunk.js": "/livebook/static/js/2.c2f9cdff.chunk.js",
     "static/js/2.c2f9cdff.chunk.js.map": "/livebook/static/js/2.c2f9cdff.chunk.js.map",
     "index.html": "/livebook/index.html",
-    "precache-manifest.f97aaaa7ab8089762f1be35f3bdbe466.js": "/livebook/precache-manifest.f97aaaa7ab8089762f1be35f3bdbe466.js",
+    "precache-manifest.e770f048fa0194f814a560bf46dbf9a7.js": "/livebook/precache-manifest.e770f048fa0194f814a560bf46dbf9a7.js",
     "service-worker.js": "/livebook/service-worker.js",
     "static/css/main.f87fa4be.chunk.css.map": "/livebook/static/css/main.f87fa4be.chunk.css.map"
   },
@@ -16,6 +16,6 @@
     "static/js/runtime-main.320e36ce.js",
     "static/js/2.c2f9cdff.chunk.js",
     "static/css/main.f87fa4be.chunk.css",
-    "static/js/main.70455773.chunk.js"
+    "static/js/main.7f71190a.chunk.js"
   ]
 }

@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "30ef3e849ae55845ba06d74b45848a24",
+    "revision": "0cd85e8674d50b754f05d0eeb2e80d38",
     "url": "/livebook/index.html"
   },
   {
-    "revision": "ed6da9c04fa36269548f",
+    "revision": "a8e34ab34fa29574f150",
     "url": "/livebook/static/css/main.f87fa4be.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/livebook/static/js/2.c2f9cdff.chunk.js"
   },
   {
-    "revision": "ed6da9c04fa36269548f",
-    "url": "/livebook/static/js/main.70455773.chunk.js"
+    "revision": "a8e34ab34fa29574f150",
+    "url": "/livebook/static/js/main.7f71190a.chunk.js"
   },
   {
     "revision": "fb0e047f1363193023d2",
