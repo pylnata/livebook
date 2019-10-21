@@ -15,7 +15,7 @@ import "./book.scss";
 const pages = ["orangered", "white", "white", "white", "white", "white", "white", "orangered"];
 
 const html = {
-  0: "<div class=\"title\"><h1>Halloween's stories</h1><img src='/images/0.png' /></div>",
+  0: "<div class=\"title\"><h1>Halloween's stories</h1><img src='https://raw.githubusercontent.com/pylnata/livebook/master/public/images/0.png' /></div>",
   1: `<p class="number">1</p>
 
   <h3>The Legend of Bride's Head Bridge</h3>
@@ -26,7 +26,7 @@ const html = {
   `,
   2: `<p class="number right">2</p>
   <p> Bleeding, and cowering in a ditch, the old witch put a curse on the carriage.  Consequently when the bridal party eventually crossed the bridge, one of the horses shied and the other reared up.  </p>
-    <p><img src='/images/1.jpg' /></p>
+    <p><img src='https://raw.githubusercontent.com/pylnata/livebook/master/public/images/1.jpg' /></p>
   <p>
   The upshot was that Gretchen was thrown from the carriage into the river below. It seems certain that she drowned as the river was in torrent and Gretchen was never seen again.
   </p>
@@ -35,7 +35,7 @@ const html = {
   <p>However, it is said by Hanoverian wicca that at Halloween you can see a headless bride standing on rocks in the middle of the river.  Some say she is looking for her lost head, while other say she is looking for her beloved Reichsgraf von Kesselstatt.</p>
 
 
-  <p><img src='/images/5.png' /></p>
+  <p><img src='https://raw.githubusercontent.com/pylnata/livebook/master/public/images/5.png' /></p>
 
 
   `,
