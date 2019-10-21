@@ -236,7 +236,7 @@ const Book = () => {
       friction: 0,
       tension: down ? 0 : 100, // TODO find optimal params
       clamp: true,
-      precision: 0
+      precision: 0,
     };
 
     const to = {
@@ -321,6 +321,16 @@ const Book = () => {
             display: "block",
             immediate: true
           };
+
+          if(i === index+4) {
+            return {
+              ...to,
+              x: pageWidth,
+              z: 0,
+              display: "block",
+              immediate: true
+            };
+          }
         return { ...to, z: 0, display: "none", immediate: true };
       });
 
@@ -354,6 +364,15 @@ const Book = () => {
             display: "block",
             immediate: true
           };
+          if(i === index+1) {
+            return {
+              ...to,
+              x: pageWidth,
+              z: 0,
+              display: "block",
+              immediate: true
+            };
+          }
         return { ...to, z: 0, display: "none", immediate: true };
       });
       console.log("finished-left");
