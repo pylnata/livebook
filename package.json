@@ -2,7 +2,7 @@
   "name": "livebook",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://pylnata.github.io/livebook",
+  "homepage": "http://pylnata.github.io/livebook/",
   "author": "Nataliia Pylypenko",
   "dependencies": {
     "gh-pages": "^2.1.1",
