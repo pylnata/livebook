@@ -1,94 +1,78 @@
 import React, { useState } from "react";
 import {
   useSprings,
-  useSpring,
   animated,
-  interpolate,
-  config
+  interpolate
 } from "react-spring";
-import { useGesture, useScroll, useDrag, addV, subV } from "react-use-gesture";
+import { useGesture } from "react-use-gesture";
 import { bookWidth, bookHeight } from "./config";
 import { calculate } from "./calculate";
 
 import { disablePageScroll, enablePageScroll } from "scroll-lock";
 
 import "./book.scss";
-import { anyTypeAnnotation } from "@babel/types";
 
 const pages = ["orangered", "white", "white", "white", "white", "white", "white", "orangered"];
-/*
-const html = {
-  0: '<img src="https://m.media-amazon.com/images/I/71x62yntQML._SX700_.jpg" />',
-  1: '<img src="https://m.media-amazon.com/images/I/81vcBETkdZL._SX700_.jpg" />',
-  2: '<img src="https://m.media-amazon.com/images/I/817YBrgmxUL._SX700_.jpg" />'
-};
-*/
 
 const html = {
   0: "<div class=\"title\"><h1>Halloween's stories</h1><img src='/images/0.png' /></div>",
   1: `<p class="number">1</p>
-  
+
   <h3>The Legend of Bride's Head Bridge</h3>
 
   <p>There's a bridge near Hanover in Germany called 'Der Kopf der Braut', which means bride's head.  A 15th century legend has it that Reichsgraf von Kesselstatt and his bride Gretchen were approaching the bridge in their horse and carriage when their way was blocked by an elderly crone.</p><p>The Reichsgraf or 'Count' ordered the old lady to get off the bridge instantly and make way for their carriage.  But it was dark, and the old lady had difficulty in herding her sheep off the bridge.</p>
-  <p>Because the old witch was moving none to fast, Reichsgraf von Kesselstatt took his whip and have her 
+  <p>Because the old witch was moving none to fast, Reichsgraf von Kesselstatt took his whip and have her
   a sound thrashing. </p>
   `,
   2: `<p class="number right">2</p>
   <p> Bleeding, and cowering in a ditch, the old witch put a curse on the carriage.  Consequently when the bridal party eventually crossed the bridge, one of the horses shied and the other reared up.  </p>
     <p><img src='/images/1.jpg' /></p>
   <p>
-  The upshot was that Gretchen was thrown from the carriage into the river below. It seems certain that she drowned as the river was in torrent and Gretchen was never seen again. 
+  The upshot was that Gretchen was thrown from the carriage into the river below. It seems certain that she drowned as the river was in torrent and Gretchen was never seen again.
   </p>
   `,
   3: `<p class="number">3</p>
   <p>However, it is said by Hanoverian wicca that at Halloween you can see a headless bride standing on rocks in the middle of the river.  Some say she is looking for her lost head, while other say she is looking for her beloved Reichsgraf von Kesselstatt.</p>
-    
-  
+
+
   <p><img src='/images/5.png' /></p>
 
-  
+
   `,
   4: `
     <p class="number right">4</p>
-    
+
     <h3>Uncle John's Halloween Story</h3>
     <p>
     When I was a boy, each year as the nights began to draw in, my uncle John would tell we kids this Halloween story.  It was a tale about a trick that he played in a graveyard.  One night Uncle John spotted his great friend Eddie weaving his way home from the village pub.  As John watched, he saw Eddie open the church's litch gate and take the shortcut through the graveyard.
     </p>
-  
+
     <p>
   There was no doubt that Eddie was the worse for wear, and appeared disoriented, really he should have taken the longer route home via the round ring.  But then he cried out to nobody in particular, 'Where am I?'
 </p>
   `,
   5: `
+  <p class="number">5</p>
   <p>
   John replied instantly, 'Amongst the living'.
   </p><p>
   'Where are you?' cried Eddie'; to which John replied in his most sepulchral voice, 'Amongst the dead'.
   </p>
-   
+
   <p>
   Eddie sobered up instantly, rushed back the way he came, and took the long way around the churchyard.  This time he preferring to go passed the round ring, rather than stay a minute longer amongst the spirits of the gravestones.
     </p>`,
-  6: "<p>The end</p>",
+  6: `
+  <p class="number right">6</p>
+  <p>Stories are from <a href="https://www.funny-jokes.com">https://www.funny-jokes.com</a></p>
+  `,
   7: `<h1>&copy; 2019 <a href="http://github.com/pylnata">github.com/pylnata</a></h1>`
 };
 
-
 let pageWidth = bookWidth / 2;
 
-const getX = i => {
-  //return 0;
-  return pageWidth;
-  if (i === 0) return pageWidth;
-  if (i === 1) return pageWidth;
-  if (i % 2 === 0) return pageWidth;
-  //else return bookWidth;
-};
-
 const from = i => ({
-  x: getX(i),
+  x: pageWidth,
   y: 0,
   x1: 0,
   y1: 0,
@@ -116,7 +100,7 @@ const from = i => ({
 const to = from;
 
 const Book = () => {
-  // this will add a scroll listener to the window
+
   //const bind2 = useScroll(state => {return false}, { domTarget: window })
   //React.useEffect(bind2, [bind2])
 
@@ -127,6 +111,7 @@ const Book = () => {
     };
   }, []);
 
+  // TODO: disable drag until previous action is'nt finshed
   const [previousWasFinished, setPreviousWasFinished] = useState(true);
 
   const [props, set] = useSprings(pages.length, i => ({
@@ -134,9 +119,9 @@ const Book = () => {
     from: from(i)
   }));
 
+// TODO: on hover make bottom corner of first page flipping
   const onHoverHandler = ({ hovering, down }) => {
     return false;
-
     if (hovering) {
       if (down) return false;
 
@@ -152,7 +137,7 @@ const Book = () => {
         [-45, -45]
       );
 */
-
+/*
       let rotationParams = {
         display: "block", // TODO calculate
         r: 1.553702725929675,
@@ -214,6 +199,7 @@ const Book = () => {
       set(i => {
         return i => to(i);
       });
+*/
     }
   };
 
@@ -248,10 +234,9 @@ const Book = () => {
     let bgHeight = bookHeight;
     const customConfig = {
       friction: 0,
-      tension: down ? 0 : 100,
+      tension: down ? 0 : 100, // TODO find optimal params
       clamp: true,
       precision: 0
-      //duration: down? 0 : 500
     };
 
     const to = {
@@ -283,12 +268,6 @@ const Book = () => {
       index
     };
 
-    /*
-      if (i === index + 1 && Math.abs(movement[0]) > 75  ) {
-        isGone = true;
-      }
-      */
-
     //if (!previousWasFinished && down) return;
 
     let side;
@@ -303,12 +282,9 @@ const Book = () => {
       ((movement[0] > 100 && side === "left") ||
         (movement[0] < -100 && side === "right"));
 
-    //if (index === 0) side = "right"
-
     // FOR TEST
-    //setPreviousWasFinished(true); //!!!!!!!!!!!1
-    //if (!down) return; //!!!!!!!!!!!!11
-    //_________
+    //setPreviousWasFinished(true);
+    //if (!down) return;
 
     setPreviousWasFinished(false);
 
@@ -352,39 +328,6 @@ const Book = () => {
       setPreviousWasFinished(true);
     };
 
-    /*
-    const onFinishBackRight = () => {
-      set(i => {
-        if (i === index)
-          return {
-            ...to,
-            z: 1,
-            display: "block",
-            immediate: true
-          };
-        if (i === index + 1)
-          return {
-            ...to,
-            z: 2,
-            display: "none",
-            immediate: true
-          };
-        if (i === index + 2)
-          return {
-            ...to,
-            z: 0,
-            display: "none",
-            immediate: true
-          };
-        return;
-        //  return { ...to, z: 0, display: "none", immediate: true };
-      });
-
-      console.log("finished-back-right");
-      setPreviousWasFinished(true);
-    };
-*/
-
     const onFinishTurnFromLeft = () => {
       set(i => {
         if (i === index)
@@ -417,17 +360,16 @@ const Book = () => {
       setPreviousWasFinished(true);
     };
 
-    const onRestFnLeft = (x, t) => {
+    const onRestFnLeft = () => {
       if (!down && needFinishTurn) onFinishTurnFromLeft();
       else if (!needFinishTurn && !down) setPreviousWasFinished(true);
-      //else setPreviousWasFinished(true);
     };
 
     const onRestFnRight = x => {
-      if (x === 0 && !down) {
+      if (!down && needFinishTurn) {
         onFinishTurnFromRight();
       }
-      if (!down && !needFinishTurn) {
+      else if (!down && !needFinishTurn) {
         setPreviousWasFinished(true);
       }
     };
@@ -444,7 +386,7 @@ const Book = () => {
 
     let memoRotationParams = rotationParams;
 
-    if (down) console.log(rotationParams);
+    //if (down) console.log(rotationParams);
 
     set(i => {
       let x1 = 0;
@@ -495,7 +437,6 @@ const Book = () => {
                 x5: pageWidth - dist,
                 y5: bookHeight,
                 immediate: true,
-                //                config: { ...customConfig, tension: 1 },
                 onRest: () => {
                   set(i => {
                     if (i === index) {
@@ -512,7 +453,6 @@ const Book = () => {
                         x5: dist,
                         y5: bookHeight,
                         immediate: true,
-                        //config: { ...customConfig, tension: 1 },
                         onRest: () => {
                           set(i => {
                             if (i === index) {
@@ -526,7 +466,6 @@ const Book = () => {
                                 x3: pageWidth,
                                 x4: pageWidth,
                                 x5: pageWidth
-                                //onRest: onFinishTurnFromLeft()
                               };
                             }
                             if (i === index - 1) {
@@ -828,8 +767,6 @@ const Book = () => {
       return memoRotationParams;
     }
 
-    //if (!down && gone.size === pages.length)
-    //setTimeout(() => gone.clear() || set(i => to(i)), bookWidth);
   };
 
   const bind = useGesture(
@@ -876,7 +813,7 @@ const Book = () => {
       i
     ) => {
       return (
-        <>
+        <div key={i}>
           <animated.div
             key={i}
             style={{
@@ -922,21 +859,9 @@ const Book = () => {
             className={`page page--${i} `}
             {...bind(i)}
           >
-            
-
             <div
               dangerouslySetInnerHTML={{ __html: html[i] }}
             ></div>
-
-
-            {/*
-            <div
-              className="img"
-              dangerouslySetInnerHTML={{ __html: html[i] }}
-            ></div>
-            */}
-
-
           </animated.div>
           {false && i === index.value + 2 && (
             <animated.div
@@ -963,7 +888,7 @@ const Book = () => {
               }}
             ></animated.div>
           )}
-        </>
+        </div>
       );
     }
   );
@@ -971,6 +896,9 @@ const Book = () => {
     <>
       <div id="book-container" style={{ width: bookWidth, height: bookHeight }}>
         {content}
+      </div>
+      <div className="copy">
+      Drag page to flip
       </div>
     </>
   );

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap");
 
 *, html {
   box-sizing: border-box;
@@ -10,12 +10,9 @@ body {
   margin: 0;
   padding: 0;
   user-select: none;
-  font-family: 'Libre Baskerville', serif;
+  font-family: "Libre Baskerville", serif;
 }
 
-#root {
-  background: transparent;
-}
 
 #book-container {
   margin: 50px auto;
@@ -23,13 +20,9 @@ body {
   display: flex;
 }
 
-.page::before {
-    content: "";
-    width: 6px;
-    background-image: linear-gradient(to left,rgba(0,0,0,.7), rgba(0,0,0,.1));
-    left:-6px;
-  }
-
+img {
+  pointer-events: none;
+}
 
 .page {
   .title {
@@ -38,56 +31,64 @@ body {
     align-items: center;
     flex-direction: column;
   }
-  .number {font-size: 11px;}
-    h1 {
-      font-size: 20px;
-      color: rgba(255,255,255,.9);
-      margin: 60px auto 0 auto;
-      line-height: 2.5;
-      text-align: center;
-      text-transform: uppercase;
-    }
-    
-    .right {
-      text-align:right;
-    }
-    
-    h4 {
-      margin: 0;
-      padding: 0;
-    }
-    cursor: pointer;
-    width: 50%;
-    height: 100%;
-    position: absolute;
-    box-shadow: inset -2px 0px 5px 0px rgba(0,0,0, .2);
-    background-color:#fff;
-    padding: 0px 30px;
-    font-size: 12px;
-    transform-origin: 0% 0%;
+  .number {
+    font-size: 11px;
+  }
+  h1 {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 60px auto 0 auto;
+    line-height: 2.5;
+    text-align: center;
+    text-transform: uppercase;
+  }
 
-    &:first-child {
-      left: 0;
-    }
+  .right {
+    text-align: right;
+  }
 
-    .img {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      img {
-        max-width: 90%;
-        margin:20px auto;
-      }
-    }
- }
+  h4 {
+    margin: 0;
+    padding: 0;
+  }
+  cursor: pointer;
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  box-shadow: inset -2px 0px 5px 0px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  padding: 0px 30px;
+  font-size: 12px;
+  transform-origin: 0% 0%;
 
-.shadow {
-    position: absolute;
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.3) 0%,rgba(184, 184, 184, 0) 100%);
-    width: 60px;
-    height: 100%;
-    z-index: 2;
-    transform-origin: 0 0;
+  &:first-child {
+    left: 0;
+  }
+
+  .img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      max-width: 90%;
+      margin: 20px auto;
+    }
+  }
 }
 
+.shadow {
+  position: absolute;
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(184, 184, 184, 0) 100%
+  );
+  width: 60px;
+  height: 100%;
+  z-index: 2;
+  transform-origin: 0 0;
+}
 
+.copy {
+text-align: center;
+}

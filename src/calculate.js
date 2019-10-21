@@ -11,21 +11,8 @@ export function calculate(
 ) {
   const offsetLeft = document.getElementById("book-container").offsetLeft;
   const offsetTop = document.getElementById("book-container").offsetTop;
-
   const result = {};
-
   const pageWidth = bookWidth / 2;
-
-  if (!down && 0) {
-    // CANCEL
-    let i0 = initial[0];
-    let i1 = initial[1];
-    initial[0] = clientX;
-    initial[1] = clientY;
-    clientX = offsetLeft + bookWidth;
-    clientY = offsetTop;
-    console.log(initial, clientX, clientY);
-  }
 
   const movementStartX = initial[0] - offsetLeft;
   const movementStartY = initial[1] - offsetTop;
@@ -126,31 +113,19 @@ export function calculate(
   const B = z0x - z1x;
   const C = -(A * z0x + B * z0y);
 
-  let u0x = reflectX(side === "right" ? bookWidth : 0, 0, A, B, C);
-  let u0y = reflectY(side === "right" ? bookWidth : 0, 0, A, B, C);
-  let u1x = reflectX(side === "right" ? bookWidth : 0, bookHeight, A, B, C);
-  let u1y = reflectY(side === "right" ? bookWidth : 0, bookHeight, A, B, C);
+  //http://www.sdmath.com/math/geometry/reflection_across_line.html
+  function reflectX(x, y) {
+    return ((B * B - A * A) * x - 2 * A * B * y - 2 * A * C) / (A * A + B * B);
+  }
 
-  /*
-      dot1Style.display = "block";
-      dot1Style.backgroundColor = "blue";
-      dot1Style.transform = "translate(" + cursorX + "px, " + cursorY + "px)";
-      dot2Style.display = "block";
-      dot2Style.backgroundColor = "yellow";
-      dot2Style.transform = "translate(" + startX + "px, " + startY + "px)";
-      dot3Style.display = "block";
-      dot3Style.backgroundColor = "green";
-      dot3Style.transform = "translate(" + z0x + "px, " + z0y + "px)";
-      dot4Style.display = "block";
-      dot4Style.backgroundColor = "purple";
-      dot4Style.transform = "translate(" + z1x + "px, " + z1y + "px)";
-      dot5Style.display = "block";
-      dot5Style.backgroundColor = "orange";
-      dot5Style.transform = "translate(" + u0x + "px, " + u0y + "px)";
-      dot6Style.display = "block";
-      dot6Style.backgroundColor = "cyan";
-      dot6Style.transform = "translate(" + u1x + "px, " + u1y + "px)";
-*/
+  function reflectY(x, y) {
+    return ((A * A - B * B) * y - 2 * A * B * x - 2 * B * C) / (A * A + B * B);
+  }
+
+  let u0x = reflectX(side === "right" ? bookWidth : 0, 0);
+  let u0y = reflectY(side === "right" ? bookWidth : 0, 0);
+  let u1x = reflectX(side === "right" ? bookWidth : 0, bookHeight);
+  let u1y = reflectY(side === "right" ? bookWidth : 0, bookHeight);
 
   result.z0x = z0x;
   result.z0y = z0y;
@@ -159,20 +134,14 @@ export function calculate(
 
   let angle = Math.atan2(u1y - u0y, u1x - u0x) - Math.PI / 2;
 
-  const d1 = dist(z0x, z0y, u0x, u0y, movement);
-  const d2 = dist(z1x, z1y, u1x, u1y, movement);
+  const d1 = dist(z0x, z0y, u0x, u0y);
+  const d2 = dist(z1x, z1y, u1x, u1y);
 
   result.x = side === "right" ? u0x : u0x - pageWidth;
   result.y = u0y;
 
   result.r = angle;
-  result.display = "block"; ////////////////////////////////////
-
-  // right
-  /*
-    style.transform = "translate(" + u0x + "px, " + u0y + "px) " +
-    "rotate(" + angle + "rad) scaleX(-1) ";
-*/
+  result.display = "block";
 
   result.z0 = z0;
   result.z1 = z1;
@@ -291,10 +260,7 @@ export function calculate(
           result.z0y = 0;
           result.z1x = 0;
           result.z1y = 0;
-
         } else if (z0 === 1) {
-          // bottom corner
-          //u1y - u0y, u1x - u0x
           result.x = bookWidth + u0x - u1x;
           result.y = bookHeight + u0y - u1y;
           result.x1 = 0;
@@ -327,7 +293,6 @@ export function calculate(
           result.z1y = 0;
         }
       } else {
-
         if (z1 === 1) {
           // top corner
           result.x = -pageWidth;
@@ -349,7 +314,6 @@ export function calculate(
           result.z0y = 0;
           result.z1x = 0;
           result.z1y = 0;
-
         } else if (z0 === 1) {
           // bottom corner
           result.x = -pageWidth;
@@ -392,20 +356,10 @@ export function calculate(
     }
   }
 
-
   return result;
 }
 
-//http://www.sdmath.com/math/geometry/reflection_across_line.html
-function reflectX(x, y, A, B, C) {
-  return ((B * B - A * A) * x - 2 * A * B * y - 2 * A * C) / (A * A + B * B);
-}
-
-function reflectY(x, y, A, B, C) {
-  return ((A * A - B * B) * y - 2 * A * B * x - 2 * B * C) / (A * A + B * B);
-}
-
-function dist(x1, y1, x2, y2, movement) {
+function dist(x1, y1, x2, y2) {
   const x = x1 - x2;
   const y = y1 - y2;
   return Math.sqrt(x * x + y * y);
