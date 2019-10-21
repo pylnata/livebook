@@ -12,7 +12,7 @@ import { disablePageScroll, enablePageScroll } from "scroll-lock";
 
 import "./book.scss";
 
-const pages = ["orangered", "white", "white", "white", "white", "white", "white", "orangered"];
+const pages = ["brown", "white", "white", "white", "white", "white", "white", "brown"];
 
 const html = {
   0: "<div class=\"title\"><h1>Halloween's stories</h1><img src='https://raw.githubusercontent.com/pylnata/livebook/master/public/images/0.png' /></div>",
@@ -66,7 +66,7 @@ const html = {
   <p class="number right">6</p>
   <p>Stories are from <a href="https://www.funny-jokes.com">https://www.funny-jokes.com</a></p>
   `,
-  7: `<h1>&copy; 2019 <a href="http://github.com/pylnata">github.com/pylnata</a></h1>`
+  7: `<center style="margin: 60px auto; color: #fff;">&copy; 2019 <a style="color:#fff;" href="http://github.com/pylnata">github.com/pylnata</a></center>`
 };
 
 let pageWidth = bookWidth / 2;
