@@ -4,6 +4,8 @@
 
 Drop page to flip book like in life! 
 
+http://pylnata.github.io/livebook/
+
 Made with react-spring and react-use-gesture libraries and with a lot of math caclulations.
 
 Has some issues and features (TODO). 
